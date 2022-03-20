@@ -5,18 +5,23 @@ import {
     HttpStatus,
     Body
 } from '@nestjs/common';
-import { createUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 
+    constructor( private usersService: UsersService) {}
+
     @Post('/create')
-    createUser(@Res() res, @Body() createUserDto: createUserDto){
+    async createUser(@Res() res, @Body() createUserDto: CreateUserDto){
 
-        console.log(createUserDto);
+        // console.log(createUserDto);
 
+        const user = await this.usersService.createUser(createUserDto)
         return res.status(HttpStatus.OK).json({
-            message: 'received'
+            message: 'received',
+            user: user,
         })
     }
 
