@@ -3,20 +3,22 @@ import {
     Get, Post, Put, Patch,
     Req, Res,
     HttpStatus,
-    NotFoundException, // should be in service
-    Body, Param
+    NotFoundException,
+    Body, Param,
+    UseGuards
 } from '@nestjs/common';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
 
     constructor(
         private usersService: UsersService,
-        private notificationService: NotificationsService
+        private notificationService: NotificationsService,
     ) {}
 
     // Crear nuevo usuario
@@ -29,6 +31,8 @@ export class UsersController {
 
         if (find) { throw new NotFoundException('User is already registered'); }
         else {
+            const notificationId = await this.notificationService.create()
+            createUserDto.notifications = notificationId
             const user = await this.usersService.createUser(createUserDto)
             return res.status(HttpStatus.OK).json({
                 message: 'Succesfully registered',
@@ -43,6 +47,7 @@ export class UsersController {
 
     // Update
     @Put('/:email')
+    // @UseGuards(AuthGuard('jwt'))
     public async updateUser(
         @Res() res,
         @Param('email') email: string,
@@ -71,6 +76,7 @@ export class UsersController {
 
     // Buscar usuarios disponibles
     @Get('/available')
+    // @UseGuards(AuthGuard('jwt'))
     public async getAllActiveUsers(
         @Res() res
     ) {
@@ -80,6 +86,7 @@ export class UsersController {
 
     // Actualizar disponibilidad
     @Patch('/:email')
+    // @UseGuards(AuthGuard('jwt'))
     public async switchAvailability(
         @Res() res,
         @Param('email') email: string,

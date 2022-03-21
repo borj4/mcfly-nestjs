@@ -1,7 +1,9 @@
 import { Controller, Get, HttpStatus, NotFoundException, Param, Res, UseGuards } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('notifications')
+// @UseGuards(AuthGuard('jwt'))
 export class NotificationsController {
     constructor(
         private usersService: UsersService
@@ -13,7 +15,10 @@ export class NotificationsController {
         if (!user) {
             throw new NotFoundException('We dont know this user');
         }
-        const notifications = user.notifications.messages.map(e => { return {message: e.message, from: e.from, send: e.sent} })
+        // DONT WORK
+        const notifications = user.notifications.messages.map(e => { return {message: e.message, from: e.from, send: e.sent} });+
+        console.log(notifications);
+        console.log(user);
         return res.status(HttpStatus.OK).json(notifications);
     };
 }

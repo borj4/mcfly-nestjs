@@ -11,11 +11,10 @@ export class NotificationsService {
     public async create(): Promise<string> {
         const newNotification = await new this.notificationModel().save()
         return newNotification._id
-    }
+    };
 
     public async newNot( id: string, messageId: string ): Promise<void> {
         // await this.notificationModel.findByIdAndUpdate(id, { $push: {messages: messageId} } );
         await this.notificationModel.findByIdAndUpdate(id, { $push: {messages: messageId} } );
-
-    }
+    };
 }

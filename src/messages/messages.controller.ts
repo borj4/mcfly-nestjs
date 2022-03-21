@@ -1,11 +1,13 @@
 
-import { Controller, HttpStatus, NotFoundException, Body, Get, Param, Post, Res} from '@nestjs/common';
+import { Controller, HttpStatus, NotFoundException, Body, Get, Param, Post, Res, UseGuards} from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { UsersService } from 'src/users/users.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('messages')
+// @UseGuards(AuthGuard('jwt'))
 export class MessagesController {
 
     constructor(
@@ -15,7 +17,7 @@ export class MessagesController {
     ) {}
 
     @Post()
-    public async setMsgToUser( // before addCustomer  //
+    public async setMsgToUser(
         @Res() res,
         @Body() createMessageDto: CreateMessageDto,
     ) {
@@ -24,10 +26,10 @@ export class MessagesController {
             if (!addressee.available) {
                 return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ups! User is no active' });
             } else {
-                console.log(addressee); ///
                 
                 const newMsg = await this.messageService.createMsg(createMessageDto);               
-                await this.notificationService.newNot(addressee._id.toString(), newMsg._id);
+                console.log(addressee._id, newMsg._id); ///
+                await this.notificationService.newNot(addressee._id.toString(), newMsg._id.toString());
                 await this.usersService.newMsg(newMsg.from, newMsg._id);
                 return res.status(HttpStatus.OK).json({
                     message: 'Message sent successfully',
