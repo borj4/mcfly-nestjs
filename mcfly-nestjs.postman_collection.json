@@ -221,6 +221,39 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Consultar mensajes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Biff Tannen\",\n    \"email\": \"biffy_the_bully@bttf.com\",\n    \"password\": \"seekAndDestroy\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/messages/daddyRocks@bttf.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"messages",
+						"daddyRocks@bttf.com"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
