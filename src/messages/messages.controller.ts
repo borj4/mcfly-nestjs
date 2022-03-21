@@ -24,8 +24,10 @@ export class MessagesController {
             if (!addressee.available) {
                 return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ups! User is no active' });
             } else {
-                const newMsg = await this.messageService.createMsg(createMessageDto);
-                await this.notificationService.newNot(addressee.notifications.toString(), newMsg._id);
+                console.log(addressee); ///
+                
+                const newMsg = await this.messageService.createMsg(createMessageDto);               
+                await this.notificationService.newNot(addressee._id.toString(), newMsg._id);
                 await this.usersService.newMsg(newMsg.from, newMsg._id);
                 return res.status(HttpStatus.OK).json({
                     message: 'Message sent successfully',

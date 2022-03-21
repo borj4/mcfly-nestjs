@@ -13,7 +13,9 @@ export class NotificationsService {
         return newNotification._id
     }
 
-    public async newNot( id: string, messageId: string ): Promise<void> { // before addNewNotification
-        await this.notificationModel.findByIdAndUpdate(id, { $push: {messages: messageId} } )
+    public async newNot( id: string, messageId: string ): Promise<void> {
+        // await this.notificationModel.findByIdAndUpdate(id, { $push: {messages: messageId} } );
+        await this.notificationModel.findByIdAndUpdate(id, { $push: {messages: messageId} } );
+
     }
 }
