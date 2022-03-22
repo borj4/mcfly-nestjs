@@ -13,7 +13,7 @@ $ npm install
 
 ```bash
 # lanzar mongodb en la terminal de linux
-$ systemctl stop mongod.service
+$ systemctl start mongod.service
 ```
 ## Lanzar la API
 
