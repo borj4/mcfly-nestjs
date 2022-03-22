@@ -19,7 +19,7 @@ export class UsersController {
         private usersService: UsersService,
     ) {}
 
-    // Crear nuevo usuario
+    // Create new user
     @Post('/create')
     async createUser(
         @Res() res,
@@ -37,9 +37,25 @@ export class UsersController {
         }
     };
 
-    // Login
-
-    // Logout
+    // Consult data user
+    @Get('/:email')
+    public async consult(
+        @Res() res,
+        @Param('email') email: string
+    ) {
+        try {
+            const info = await this.usersService.findByEmail(email) // not destructured about email name
+            return res.status(HttpStatus.OK).json({
+                "name": info.name,
+                "email": info.email,
+                "available": info.available
+            });
+        } catch (err) {
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                message: 'Something went wrong'
+            })
+        }
+    };
 
     // Update
     @Put('/:email')
@@ -70,7 +86,7 @@ export class UsersController {
         }
     };
 
-    // Buscar usuarios disponibles
+    // Search available users
     @Get('/available')
     // @UseGuards(AuthGuard('jwt'))
     public async getAllActiveUsers(
@@ -80,7 +96,7 @@ export class UsersController {
         return res.status(HttpStatus.OK).json(users); 
     };
 
-    // Actualizar disponibilidad
+    // Switch availability
     @Patch('/:email')
     // @UseGuards(AuthGuard('jwt'))
     public async switchAvailability(

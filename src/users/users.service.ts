@@ -9,13 +9,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersService {
     constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-    // Crear nuevo usuario
+    // Create new user
     public async createUser( createUserDto: CreateUserDto ): Promise<User> {
         const user = new this.userModel(createUserDto);
         return await user.save();
     };
 
-    // Comprobar email en la bbdd
+    // Check email in db
     public async findByEmail(email: string): Promise<User> {
         return this.userModel.findOne({ email });
     };
@@ -30,12 +30,12 @@ export class UsersService {
         };
     };
 
-    // Buscar usuarios disponibles
+    // Search available users
     public async findAvailableUsers(): Promise<User[]> {
         return await this.userModel.find({ 'available': true }, '-_id -__v -notifications -messages -password').exec();
     };
 
-    // Actualizar disponibilidad
+    // Switch availability
     public async switchAvailability( email: string ): Promise<User> {
         const preUser = await this.userModel.findOne({ email }).exec();
 

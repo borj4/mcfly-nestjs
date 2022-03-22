@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Exclude, Transform } from "class-transformer";
 import { Document, Types } from 'mongoose'; //to manage relations
 import { Message } from "./message.schema";
-import { Notification } from "./notification.schema";
 
 @Schema()
 export class User {
