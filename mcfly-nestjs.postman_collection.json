@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cee248a9-4e1a-420e-acba-7408999b57cc",
+		"_postman_id": "e4bde276-afb4-40db-9cb3-760f52ca3c12",
 		"name": "mcfly-nestjs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -38,38 +38,6 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Biff Tannen\",\n    \"email\": \"biffy_the_bully@bttf.com\",\n    \"password\": \"seekAndDestroy\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:3000/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Crear usuario",
 			"request": {
 				"method": "POST",
@@ -82,10 +50,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Biff Tannen\",\n    \"email\": \"biffy_the_bully@bttf.com\",\n    \"password\": \"seekAndDestroy\"\n}"
+					"raw": "{\n    \"name\": \"alguien\",\n    \"email\": \"someone@bttf.com\",\n    \"password\": \"why\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/users/create",
+					"raw": "http://localhost:3000/users/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -93,7 +61,7 @@
 					"port": "3000",
 					"path": [
 						"users",
-						"create"
+						""
 					]
 				}
 			},
@@ -133,36 +101,6 @@
 			"response": []
 		},
 		{
-			"name": "Editar datos",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"name\":\"Marty McFly\",\n\"email\":\"mmcfly@bttf.com\",\n\"password\":\"delorean\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:3000/users/mmcfly@bttf.com",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"mmcfly@bttf.com"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Cambiar disponibilidad",
 			"request": {
 				"method": "PATCH",
@@ -193,6 +131,66 @@
 			"response": []
 		},
 		{
+			"name": "Editar datos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsiYXZhaWxhYmxlIjoiaW5pdCIsImluYm94IjoiaW5pdCIsIm91dGJveCI6ImRlZmF1bHQiLCJfaWQiOiJpbml0IiwibmFtZSI6ImluaXQiLCJlbWFpbCI6ImluaXQiLCJwYXNzd29yZCI6ImluaXQiLCJfX3YiOiJpbml0In0sInN0YXRlcyI6eyJpZ25vcmUiOnt9LCJkZWZhdWx0Ijp7Im91dGJveCI6dHJ1ZX0sImluaXQiOnsiX2lkIjp0cnVlLCJuYW1lIjp0cnVlLCJlbWFpbCI6dHJ1ZSwicGFzc3dvcmQiOnRydWUsImF2YWlsYWJsZSI6dHJ1ZSwiX192Ijp0cnVlLCJpbmJveCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sInN0cmljdE1vZGUiOnRydWUsInNraXBJZCI6dHJ1ZSwic2VsZWN0ZWQiOnt9LCJmaWVsZHMiOnt9LCJleGNsdWRlIjpudWxsLCJfaWQiOiI2MjM5OTIyMTFlYzM1NzM1MTZlNGJjMjgifSwiJGlzTmV3IjpmYWxzZSwiX2RvYyI6eyJvdXRib3giOltdLCJfaWQiOiI2MjM5OTIyMTFlYzM1NzM1MTZlNGJjMjgiLCJuYW1lIjoiTWFydHkgTWNGbHkiLCJlbWFpbCI6Im1tY2ZseUBidHRmLmNvbSIsInBhc3N3b3JkIjoiZGVsb3JlYW4iLCJhdmFpbGFibGUiOnRydWUsIm1lc3NhZ2VzIjpbXSwibm90aWZpY2F0aW9ucyI6IjYyMzk5MjIxMWVjMzU3MzUxNmU0YmMyNiIsIl9fdiI6MCwiaW5ib3giOlsiNjIzOWI2MWM0YjJkN2QyZjNlOTQ4NzY3Il19LCJpYXQiOjE2NDc5NjcwODAsImV4cCI6MTY0Nzk3MDY4MH0.usnVqtEObZW1RDnpUviuqz1f6hNJ-9c_uifwExciYOM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"George McFly\",\n    \"email\": \"daddyRocks@bttf.com\",\n    \"password\": \"lorraine\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/daddyRock@bttf.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"daddyRock@bttf.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar datos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/mmcfly@bttf.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"mmcfly@bttf.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Crear Mensaje",
 			"request": {
 				"method": "POST",
@@ -205,7 +203,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"message\": \"Could you fix my vhs?\",\n    \"from\": \"daddyRocks@bttf.com\",\n    \"to\": \"mmcfly@bttf.com\"\n}"
+					"raw": "{\n    \"message\": \"Hey! wax my car!!\",\n    \"from\": \"biffy_the_bully@bttf.com\",\n    \"to\": \"mmcfly@bttf.com\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:3000/messages/",
@@ -223,7 +221,41 @@
 			"response": []
 		},
 		{
-			"name": "Consultar mensajes",
+			"name": "Consultar mensajes enviados",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/messages/daddyRocks@bttf.com/from",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"messages",
+						"daddyRocks@bttf.com",
+						"from"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar mensajes recibidos",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -241,7 +273,7 @@
 					"raw": "{\n    \"name\": \"Biff Tannen\",\n    \"email\": \"biffy_the_bully@bttf.com\",\n    \"password\": \"seekAndDestroy\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/messages/daddyRocks@bttf.com",
+					"raw": "http://localhost:3000/messages/mmcfly@bttf.com/to",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -249,7 +281,31 @@
 					"port": "3000",
 					"path": [
 						"messages",
-						"daddyRocks@bttf.com"
+						"mmcfly@bttf.com",
+						"to"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"mmcfly@bttf.com\"\n    \"password\":\"delorean\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
 					]
 				}
 			},

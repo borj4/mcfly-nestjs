@@ -10,7 +10,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-import { AuthGuard } from '@nestjs/passport';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +20,8 @@ export class UsersController {
     ) {}
 
     // Create new user
-    @Post('/create')
+    @Public()
+    @Post('/')
     async createUser(
         @Res() res,
         @Body() createUserDto: CreateUserDto
@@ -35,6 +36,15 @@ export class UsersController {
                 user: user,
             });
         }
+    };
+    // Search available users
+    @Get('/available')
+    // @UseGuards(AuthGuard('jwt'))
+    public async getAllActiveUsers(
+        @Res() res
+    ) {
+        const users = await this.usersService.findAvailableUsers()
+        return res.status(HttpStatus.OK).json(users); 
     };
 
     // Consult data user
@@ -84,16 +94,6 @@ export class UsersController {
                 status: 400,
             });
         }
-    };
-
-    // Search available users
-    @Get('/available')
-    // @UseGuards(AuthGuard('jwt'))
-    public async getAllActiveUsers(
-        @Res() res
-    ) {
-        const users = await this.usersService.findAvailableUsers()
-        return res.status(HttpStatus.OK).json(users); 
     };
 
     // Switch availability

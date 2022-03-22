@@ -6,8 +6,8 @@ import { User } from 'src/schemas/users.schema';
 @Injectable()
 export class AuthService {
     constructor(
+        private jwtService: JwtService,
         private userService: UsersService,
-        private jwtService: JwtService
     ) {}
 
     private getUserToken(user: User): string {
@@ -21,7 +21,7 @@ export class AuthService {
 
         if (!user) throw new Error('This user is not in our database');
         if (password !== user.password) throw new Error('The provided password is not correct');
-
+        
         return this.getUserToken(user);
     }
 }
