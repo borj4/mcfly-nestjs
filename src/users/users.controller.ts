@@ -7,7 +7,6 @@ import {
     Body, Param,
     UseGuards
 } from '@nestjs/common';
-import { NotificationsService } from 'src/notifications/notifications.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
@@ -18,7 +17,6 @@ export class UsersController {
 
     constructor(
         private usersService: UsersService,
-        private notificationService: NotificationsService,
     ) {}
 
     // Crear nuevo usuario
@@ -31,8 +29,6 @@ export class UsersController {
 
         if (find) { throw new NotFoundException('User is already registered'); }
         else {
-            const notificationId = await this.notificationService.create()
-            createUserDto.notifications = notificationId
             const user = await this.usersService.createUser(createUserDto)
             return res.status(HttpStatus.OK).json({
                 message: 'Succesfully registered',

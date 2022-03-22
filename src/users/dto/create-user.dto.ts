@@ -15,10 +15,9 @@ export class CreateUserDto {
     password: string;
 
     @IsArray()
-    readonly messages: [];
+    readonly inbox: [];
 
-    @IsString()
-    @IsNotEmpty()
-    notifications: string;
+    @IsArray()
+    readonly outbox: [];
 
 }

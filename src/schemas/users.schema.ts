@@ -24,10 +24,10 @@ export class User {
     available: boolean;
 
     @Prop({type: [Types.ObjectId], ref: Message.name, default: []})
-    messages: Message[];
+    inbox: Message[];
 
-    @Prop({type: Types.ObjectId, ref: Notification.name})
-    notifications: Notification;
+    @Prop({type: [Types.ObjectId], ref: Message.name, default: []})
+    outbox: Message[];
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

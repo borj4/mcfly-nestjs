@@ -17,7 +17,7 @@ export class UsersService {
 
     // Comprobar email en la bbdd
     public async findByEmail(email: string): Promise<User> {
-        return await this.userModel.findOne({ email }, '-__v -messages').exec();
+        return this.userModel.findOne({ email });
     };
     
     // Update
@@ -47,22 +47,9 @@ export class UsersService {
         }
     };
 
-    // La siguiente lógica es propia de la sección de mensajes, pero al estar esta colección de postman
-    // anidada (relacionada) con la de users, es más sencillo llamarlo desde el modelo de usuarios
-
-    // To messages controller
-    public async newMsg( email: string, messageId: string ): Promise<void> {
-        await this.userModel.findOneAndUpdate({ email }, { $push: {messages: messageId} } )
+    // updates the user object to push the new message into the correct array
+    public async newMsg( email: string, messageId: string, box: 'inbox' | 'outbox' ): Promise<void> {
+        await this.userModel.findOneAndUpdate({ email }, { $push: { [box]: messageId} } )
     };
 
-    // To messages controller
-    public async findMgsByEmail(email: string): Promise<User> {
-        return await this.userModel.findOne({ email }).populate('messages').exec();
-    };
-
-    // To notifications controller
-    public async findNotsByEmail(email: string): Promise<User> {
-        const obj = { path: 'notifications', populate: { path: 'messages' }};
-        return await this.userModel.findOne({ email }).populate(obj).exec();
-    };
 }

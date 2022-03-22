@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsDate } from "class-validator";
 
 export class CreateMessageDto {
     @IsString()
@@ -12,4 +12,7 @@ export class CreateMessageDto {
     @IsString()
     @IsNotEmpty()
     readonly to: string;
+
+    @IsDate()
+    sent: Date;
 }

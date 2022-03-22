@@ -1,9 +1,9 @@
 
 import { Controller, HttpStatus, NotFoundException, Body, Get, Param, Post, Res, UseGuards} from '@nestjs/common';
 import { MessagesService } from './messages.service';
-import { UsersService } from 'src/users/users.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { UsersService } from 'src/users/users.service';
+import { ok } from 'assert';
 // import { AuthGuard } from '@nestjs/passport';
 
 @Controller('messages')
@@ -13,7 +13,6 @@ export class MessagesController {
     constructor(
         private messageService: MessagesService,
         private usersService: UsersService,
-        private notificationService: NotificationsService
     ) {}
 
     @Post()
@@ -22,36 +21,38 @@ export class MessagesController {
         @Body() createMessageDto: CreateMessageDto,
     ) {
         try {
-            const addressee = await this.usersService.findByEmail(createMessageDto.to);
-            if (!addressee.available) {
-                return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ups! User is no active' });
-            } else {
-                
-                const newMsg = await this.messageService.createMsg(createMessageDto);               
-                console.log(addressee._id, newMsg._id); ///
-                await this.notificationService.newNot(addressee._id.toString(), newMsg._id.toString());
-                await this.usersService.newMsg(newMsg.from, newMsg._id);
-                return res.status(HttpStatus.OK).json({
-                    message: 'Message sent successfully',
-                    newMsg,
-                });
-            }
+            const receiver = await this.usersService.findByEmail(createMessageDto.to);
+            const sender = await this.usersService.findByEmail(createMessageDto.from);
+            if (!receiver?.available) {
+                return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ups! User is not active' });
+            } 
+            
+            createMessageDto.sent = new Date();
+            const newMsg = await this.messageService.createMsg(createMessageDto as CreateMessageDto, sender, receiver);               
+            
+            return res.status(HttpStatus.OK).json({
+                message: 'Message sent successfully',
+                newMsg,
+            });
+        
         } catch (err) {
             return res.status(HttpStatus.BAD_REQUEST).json({ message: 'Ups! message dont sent!' });
         }
-    };
+    };s
 
-    @Get('/:email')
-    public async getMsgByUser(
+    @Get('/:email/:toFrom')
+    public async getMessagesByUserEmail(
         @Res() res,
-        @Param('email') email: string
+        @Param('email') email: string,
+        @Param('toFrom') toFrom: 'to' | 'from',
     ) {
-        const user = await this.usersService.findMgsByEmail(email)
+        const user = await this.usersService.findByEmail(email);
         if (!user) {
             throw new NotFoundException(`We dont know this user, check if email ${email} is correct`);
-        } else {
-            const messages = user.messages.map(element => { return {message: element.message, to: element.to, sent: element.sent} })
-            return res.status(HttpStatus.OK).json(messages);
-        };
+        } 
+        const messages = await this.messageService.getMessagesByUserEmail(email, toFrom);
+
+        return res.status(HttpStatus.OK).json(messages);
+        
     };
 }
