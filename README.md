@@ -28,8 +28,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-
 ## Observaciones
 
 En la raíz del repositorio se encuentra la colección de postsman, o bien [aquí](mcfly-nestjs.postman_collection.json).
+
 Hay que precisar que se ha prescindido deliberadamente de proteger variables de entorno para facilitar su manejo.
+
+Para generar el token, primero hay que crear un usuario. Posteriormente haremos login y retornará un token que hay que utilizar para consultar el resto de los endpoints.
