@@ -11,14 +11,15 @@ export class NotificationsController {
 
     @Get('/:email')
     public async getUserByEmail( @Res() res, @Param('email') email: string ) {
-        const user = await this.usersService.findNotsByEmail(email)
+        const user = await this.usersService.findNotsByEmail(email);
+        console.log(user.notifications)
         if (!user) {
             throw new NotFoundException('We dont know this user');
         }
         // DONT WORK
-        const notifications = user.notifications.messages.map(e => { return {message: e.message, from: e.from, send: e.sent} });+
+        const notifications = user.notifications.messages.map(e => { return {message: e.message, from: e.from, send: e.sent} });
         console.log(notifications);
-        console.log(user);
+        // console.log(user);
         return res.status(HttpStatus.OK).json(notifications);
     };
 }

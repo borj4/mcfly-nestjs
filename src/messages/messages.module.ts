@@ -15,6 +15,7 @@ import { AuthModule } from 'src/utilities/auth.module';
     AuthModule
   ],
   providers: [MessagesService],
-  controllers: [MessagesController]
+  controllers: [MessagesController],
+  exports: [MessagesService]
 })
 export class MessagesModule {}

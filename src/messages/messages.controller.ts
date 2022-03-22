@@ -4,7 +4,7 @@ import { MessagesService } from './messages.service';
 import { UsersService } from 'src/users/users.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { CreateMessageDto } from './dto/create-message.dto';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 
 @Controller('messages')
 // @UseGuards(AuthGuard('jwt'))
