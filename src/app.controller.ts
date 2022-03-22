@@ -5,7 +5,6 @@ import { Public } from 'src/decorators/public.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
   // Llamar a la API y que me devuelva algo
   @Public()
   @Get()
