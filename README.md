@@ -2,7 +2,7 @@
 
 API de mensajería con gestión de contactos y mensajes. El repo está [aquí](https://github.com/borj4/mcfly-nestjs.git).
 
-## Instalaciónn
+## Instalación
 
 ```bash
 $ git clone https://github.com/borj4/mcfly-nestjs.git
@@ -35,3 +35,5 @@ En la raíz del repositorio se encuentra la colección de postsman, o bien [aqu�
 Hay que precisar que se ha prescindido deliberadamente de proteger variables de entorno para facilitar su manejo.
 
 Para generar el token, primero hay que crear un usuario. Posteriormente haremos login y retornará un token que hay que utilizar para consultar el resto de los endpoints.
+
+Happy coding!
